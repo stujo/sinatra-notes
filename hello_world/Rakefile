@@ -1,0 +1,10 @@
+#require "./app"
+
+
+desc "Start the Server"
+task :server do 
+  puts "Loading Server.."
+  exec 'shotgun'
+
+end
+
