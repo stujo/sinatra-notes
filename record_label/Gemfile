@@ -5,6 +5,7 @@ gem 'thin', require: false
 gem "sinatra-activerecord"
 gem "sqlite3"
 gem "rake"
+gem "haml"
 
 
 
