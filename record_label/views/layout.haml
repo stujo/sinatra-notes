@@ -1,11 +1,27 @@
+/ !!!
+/ %html
+/   %head
+/     %title Record Label
+/     != css :application, :media => 'screen'
+/     != js :app
+/   %body
+/     #wrapper
+/       #header Help | Sign In
+/       #content
+/         =yield
+/       #footer about us message in the footer
+
+
 !!!
-%html
+%html.no-js{:lang => "en"}
   %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
     %title Record Label
-    %link(rel="stylesheet" type="text/css" href="/css/style.css")
+    != css :application, :media => 'screen'
+    != js :app_header
   %body
-    #wrapper
-      #header Help | Sign In
-      #content
-        =yield
-      #footer about us message in the footer
+    =yield
+    != js :app_footer
+    :javascript
+      $(document).foundation();      
