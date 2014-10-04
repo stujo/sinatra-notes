@@ -1,9 +1,8 @@
-require 'sinatra'
-require "sinatra/activerecord"
 
-set :database, {adapter: "sqlite3", database: "db/development.sqlite3"}
+
+require File.expand_path('../config/application.rb', __FILE__)
+
 
 get '/hi' do
-  "Hello Record World! #{settings.database}"
+  "Hello Record World! #{ActiveRecord::Base.connection_config}"
 end
-

@@ -1,12 +1,11 @@
 require "sinatra/activerecord/rake"
 require "./app"
 
-desc "Start the Server"
-task :server do 
-  puts "Loading Server.."
-  exec 'shotgun'
-
+desc "Start Console"
+task :console do
+  puts "Loading App in console..."
+  require 'irb'
+  require 'irb/completion'
+  ARGV.clear
+  IRB.start
 end
-
-
-
