@@ -1,21 +1,20 @@
-#title Welcome to Record Label
-
-#heading ActiveRecord / SQL Example 
-
-
-.code= ActiveRecord::Base.connection_config
-
-.code= @sql
-
-#heading Query Results
-%table
-  %thead
-    %tr
-      %th ID
-      %th Band
-      %th Albums
-  - @rows.each do |row|
-    %tr
-      %td= row[0]  
-      %td= row[1]  
-      %td= row[2]  
+.row
+  .large-12.columns
+    %h1 Welcome to Record Label
+.row
+  .large-12.columns
+    %h3 ActiveRecord / SQL Example 
+    .panel= ActiveRecord::Base.connection_config
+    .panel= @sql
+    %h3 Query Results
+    %table
+      %thead
+        %tr
+          %th ID
+          %th Band
+          %th Albums
+      - @rows.each do |row|
+        %tr
+          %td= row[0]  
+          %td= row[1]  
+          %td= row[2]  
