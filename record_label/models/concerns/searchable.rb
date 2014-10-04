@@ -1,24 +1,34 @@
 module RecordLabel
   module Searchable
+
+    class SearchableException < Exception
+    end
+
+
     def self.extended(mod)
-      puts "Addings searchable to #{mod}"
+      mod.instance_eval do
+        def self.searchable_attributes= attribute_names
+          @searchable_attributes = attribute_names
+        end
 
-      def mod.searchable_attributes= attribute_names
+        def self.searchable_attributes
+          @searchable_attributes
+        end
 
-        puts "Settings searchable_attributes to #{attribute_names} on #{self}"
+        scope :searchable, -> (q_search_term) {
 
-        @searchable_attributes = attribute_names
+          raise SearchableException, 
+            "searchable_attributes= not set for #{self} after extending Searchable" if searchable_attributes.nil?
+
+          unless q_search_term.empty?
+            where(searchable_attributes.map {|attribute|
+                        "(#{attribute} LIKE ('%' || :query || '%'))"
+            }.join(" OR ") , {query: q_search_term})
+          else
+            none
+          end
+        }
       end
-
-      def mod.searchable_attributes
-        @searchable_attributes
-      end
-
-      mod.scope :searchable, -> (q_search_term) {
-        mod.where(mod.searchable_attributes.map {|attribute|
-                    "(#{attribute} LIKE ('%' || :query || '%'))"
-        }.join(" OR ") , {query: q_search_term})
-      }
     end
   end
 end

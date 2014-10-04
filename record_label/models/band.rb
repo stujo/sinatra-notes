@@ -5,6 +5,7 @@ class Band < ActiveRecord::Base
   has_many :stints
   has_many :artists, through: :stints
 
+  scope :unsigned, -> { where(agent: [false, nil]) }
 
   # Support for autocomplete agent selection
   # based on:
